@@ -1,0 +1,2 @@
+1. add validation in auth forms using react-hook-forms
+2. 
