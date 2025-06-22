@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -68,18 +68,17 @@ export function SignupForm({
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="name">Name</Label>
-                <Input 
-                id="name" 
-                type="text" 
-                placeholder="john doe" 
-                required 
-                {...register("name")}
-              />
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="john doe"
+                  required
+                  {...register("name")}
+                />
 
-              {errors.name && (
-                <p className="text-xs text-red-500">{errors.name.message}</p>
-              )}
-
+                {errors.name && (
+                  <p className="text-xs text-red-500">{errors.name.message}</p>
+                )}
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
@@ -91,8 +90,8 @@ export function SignupForm({
                   {...register("email")}
                 />
                 {errors.email && (
-                <p className="text-xs text-red-500">{errors.email.message}</p>
-              )}
+                  <p className="text-xs text-red-500">{errors.email.message}</p>
+                )}
               </div>
 
               <div className="grid gap-3">
@@ -105,12 +104,16 @@ export function SignupForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required 
-                {...register("password")}/>
+                <Input
+                  id="password"
+                  type="password"
+                  required
+                  {...register("password")}
+                />
                 {errors.password && (
-                <p className="text-xs text-red-500">
-                  {errors.password.message}
-                </p>
+                  <p className="text-xs text-red-500">
+                    {errors.password.message}
+                  </p>
                 )}
               </div>
               <div className="flex flex-col gap-3">

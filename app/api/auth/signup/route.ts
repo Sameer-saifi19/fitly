@@ -1,10 +1,15 @@
 import { prisma } from "@/lib/prisma";
+import { signupSchema } from "@/lib/validation/user";
 import { hash } from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
     try {
-        const { name, email, password } = await req.json();
+        
+        const body = await req.json();
+
+        const parsedData = signupSchema.parse(body);
+        const {name, email, password} = parsedData;
 
         const existingUser = await prisma.user.findUnique({
             where: { email },

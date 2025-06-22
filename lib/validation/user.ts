@@ -13,8 +13,8 @@ const passwordMixture = z
     )
 
 export const signupSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email format"),
+  name: z.string().min(3, "Name should be atleast 3 characters long"),
+  email: z.string().email("Invalid email"),
   password: passwordMixture
 });
 
