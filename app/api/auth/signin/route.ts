@@ -23,7 +23,6 @@ export async function POST(req:NextRequest) {
             },{status:401})
         }else{
             const jwtSecret = process.env.JWT_SECRET;
-            console.log(jwtSecret)
             if (!jwtSecret) {
                 throw new Error("JWT secret is not defined in environment variables.");
             }
