@@ -38,6 +38,7 @@ export function SigninForm({
     setServerError("");
     const res = await fetch("/api/auth/signin", {
       method: "POST",
+      credentials:"include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
@@ -52,7 +53,7 @@ export function SigninForm({
     if (!res.ok) {
       setServerError(result.message || "signin failed");
     } else {
-      await router.push("/dashboard");
+      router.push("/dashboard");
     }
   };
 

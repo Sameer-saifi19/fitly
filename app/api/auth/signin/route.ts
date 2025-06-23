@@ -31,17 +31,20 @@ export async function POST(req:NextRequest) {
             }, jwtSecret)
 
             const response = NextResponse.json({
-                message: "Signin successful"
+                message: "Signin successful",
+                token: token
             })
 
             response.cookies.set("token", token,{
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
+                secure: false,
                 sameSite: "lax",
                 path:"/",
                 maxAge: 60 * 60 * 24 *7
             })
+            console.log("token:  ",token)
             return response;
+
         }
     } catch (error) {
         console.error("something went wrong", error);
