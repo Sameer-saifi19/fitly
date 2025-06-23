@@ -30,10 +30,18 @@ export async function POST(req:NextRequest) {
                 id: user.id,
             }, jwtSecret)
 
-        return NextResponse.json({
-            token: token,
-            message: "sign in success"
-        })
+            const response = NextResponse.json({
+                message: "Signin successful"
+            })
+
+            response.cookies.set("token", token,{
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: "lax",
+                path:"/",
+                maxAge: 60 * 60 * 24 *7
+            })
+            return response;
         }
     } catch (error) {
         console.error("something went wrong", error);

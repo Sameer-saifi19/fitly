@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signupSchema, SignupSchemaType } from "@/lib/validation/user";
+import { signinSchema, SigninSchemaType } from "@/lib/validation/signinSchema";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -30,24 +30,29 @@ export function SigninForm({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupSchemaType>({
-    resolver: zodResolver(signupSchema),
+  } = useForm<SigninSchemaType>({
+    resolver: zodResolver(signinSchema),
   });
 
-  const onSubmit = async (data: SignupSchemaType) => {
+  const onSubmit = async (data: SigninSchemaType) => {
     setServerError("");
-    const res = await fetch("http://localhost:3000/api/auth/signin", {
+    const res = await fetch("/api/auth/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
 
-    const result = await res.json();
+    let result;
+    try {
+      result = await res.json();
+    } catch (error) {
+      result = {message:"Unexpected error from the server", error}
+    }
 
     if (!res.ok) {
       setServerError(result.message || "signin failed");
     } else {
-      router.push("/signin");
+      await router.push("/dashboard");
     }
   };
 
@@ -56,9 +61,7 @@ export function SigninForm({
       <Card>
         <CardHeader>
           <CardTitle>Sign in to your account</CardTitle>
-          <CardDescription>
-            Enter your email below to sign in
-          </CardDescription>
+          <CardDescription>Enter your email below to sign in</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -104,7 +107,7 @@ export function SigninForm({
             </div>
             <div className="mt-4 text-center text-sm">
               Don't have an account?{" "}
-              <a href="/signin" className="underline underline-offset-4">
+              <a href="/signup" className="underline underline-offset-4">
                 signup
               </a>
             </div>

@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signupSchema, SignupSchemaType } from "@/lib/validation/user";
+import { signupSchema, SignupSchemaType } from "@/lib/validation/signupSchema";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -36,7 +36,7 @@ export function SignupForm({
 
   const onSubmit = async (data: SignupSchemaType) => {
     setServerError("");
-    const res = await fetch("http://localhost:3000/api/auth/signup", {
+    const res = await fetch("api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
