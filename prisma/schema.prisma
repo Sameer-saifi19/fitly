@@ -30,7 +30,7 @@ model Trainee {
   id          String       @id @default(cuid())
   name        String
   email       String?      @unique
-  phone       Int          @unique
+  phone       String       @unique
   age         Int
   address     String
   role        Role         @default(MEMBER)
