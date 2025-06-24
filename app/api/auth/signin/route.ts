@@ -7,15 +7,15 @@ export async function POST(req:NextRequest) {
     try {
         const { email, password} = await req.json();
         
-        const user = await prisma.user.findUnique({ where :{ email }});
+        const admin = await prisma.admin.findUnique({ where :{ email }});
 
-        if(!user){
+        if(!admin){
             return NextResponse.json({
-                message: "User not found"
+                message: "Account not found"
             },{status: 404})
         }
 
-        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        const isPasswordCorrect = await bcrypt.compare(password, admin.password);
 
         if(!isPasswordCorrect){
             return NextResponse.json({
@@ -27,7 +27,7 @@ export async function POST(req:NextRequest) {
                 throw new Error("JWT secret is not defined in environment variables.");
             }
             const token = jwt.sign({
-                id: user.id,
+                id: admin.id,
             }, jwtSecret)
 
             const response = NextResponse.json({

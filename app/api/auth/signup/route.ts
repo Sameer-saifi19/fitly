@@ -10,20 +10,20 @@ export async function POST(req: NextRequest) {
     const parsedData = signupSchema.parse(body);
     const { name, email, password } = parsedData;
 
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await prisma.admin.findUnique({
       where: { email },
     });
 
     if (existingUser) {
       return NextResponse.json(
-        { message: "user already Exist" },
+        { message: "Account already Exist" },
         { status: 400 }
       );
     }
 
     const hashedPassword = await hash(password, 12);
 
-    const user = await prisma.user.create({
+    const admin = await prisma.admin.create({
       data: {
         name,
         email,
@@ -31,11 +31,10 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    console.log("user created", user.name);
 
     return NextResponse.json(
       {
-        message: "User Created Successfully",
+        message: "Account Created Successfully",
       },
       {
         status: 201,
