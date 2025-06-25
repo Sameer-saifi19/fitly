@@ -1,2 +1,4 @@
 1. redirect to dashboard after sign in 
-2. 
+2. change postgresql url postgresql://Sameer:1302@localhost:5432/fitly
+
+

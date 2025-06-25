@@ -35,7 +35,7 @@ export async function POST(req:NextRequest) {
                 token: token
             })
 
-            response.cookies.set("token", token,{
+            response.cookies.set("token success", token,{
                 httpOnly: true,
                 secure: false,
                 sameSite: "lax",
